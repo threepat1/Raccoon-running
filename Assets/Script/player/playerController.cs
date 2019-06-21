@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class playerController : MonoBehaviour
 {
-    [SerializeField] private float m_JumpForce = 400f;                          // Amount of force added when the player jumps. 1 = 100%
+    [SerializeField] private float m_JumpForce = 0.5f;                          // Amount of force added when the player jumps. 1 = 100%
     [Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;  // How much to smooth out the movement
     [SerializeField] private bool m_AirControl = false;                         // Whether or not a player can steer while jumping;
     [SerializeField] private LayerMask m_WhatIsGround;                          // A mask determining what is ground to the character
@@ -27,8 +27,8 @@ public class playerController : MonoBehaviour
     [System.Serializable]
     public class BoolEvent : UnityEvent<bool> { }
 
-    public BoolEvent OnCrouchEvent;
-    private bool m_wasCrouching = false;
+
+
 
     private void Awake()
     {
@@ -37,8 +37,6 @@ public class playerController : MonoBehaviour
         if (OnLandEvent == null)
             OnLandEvent = new UnityEvent();
 
-        if (OnCrouchEvent == null)
-            OnCrouchEvent = new BoolEvent();
     }
 
     private void FixedUpdate()
@@ -61,7 +59,7 @@ public class playerController : MonoBehaviour
     }
 
 
-    public void Move(float move, bool crouch, bool jump)
+    public void Move(float move, bool jump)
     {
 
 

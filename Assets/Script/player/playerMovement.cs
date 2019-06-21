@@ -9,14 +9,18 @@ public class playerMovement : MonoBehaviour
     float horizontalMove = 0f;
     bool jump = false;
 
+
+    public Joystick joy;
     public Animator anim;
 
     // Start is called before the first frame update
     void Update()
     {
-        horizontalMove = Input.GetAxis("Horizontal") * runSpeed;
+
+        horizontalMove = joy.Horizontal * runSpeed;
+        
         anim.SetFloat("Speed", Mathf.Abs(horizontalMove));
-        if(Input.GetButtonUp("Jump"))
+        if(Input.GetButtonDown("Jump"))
         {
             jump = true;
             anim.SetBool("IsJumping", true);
@@ -26,7 +30,9 @@ public class playerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        controller.Move(horizontalMove * Time.fixedDeltaTime, false, jump);
+        //transform.Translate(Vector2.right * joy.Horizontal);
+
+        controller.Move(horizontalMove * Time.fixedDeltaTime, jump);
         jump = false;
     }
     public void OnLanding()

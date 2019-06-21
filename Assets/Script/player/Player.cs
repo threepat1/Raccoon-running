@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public bool isDead;
     public Animator anim;
 
+
     public GameObject heart1, heart2, heart3, gameUI, player;
     public static int health;
 
@@ -50,7 +51,7 @@ public class Player : MonoBehaviour
                 heart3.gameObject.SetActive(false);  
                 break;
         }
-        if (health <= 0)
+        if (health <= 0 || player == null )
         {
 
             Death();
