@@ -21,12 +21,17 @@ public class playerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Update()
     {
-
-        horizontalMove = joy.Horizontal * runSpeed;
+        if (joy.Horizontal >= 0.2f)
+        {
+            horizontalMove = runSpeed;
+        }
+        else if (joy.Horizontal <= -0.2f) { horizontalMove = -runSpeed; }
+        else { horizontalMove = 0; }
 
         anim.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
-        if (joy.Vertical >= 0.1 || Input.GetKeyUp(KeyCode.Space))
+        float verticalMove = joy.Vertical;
+        if (verticalMove >= 0.6f || Input.GetKeyUp(KeyCode.Space))
         {
 
             jump = true;
