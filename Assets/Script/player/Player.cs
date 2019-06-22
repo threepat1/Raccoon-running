@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
 
     public GameObject heart1, heart2, heart3, gameUI, player;
     public static int health;
+    public GameObject joyPanel;
 
     // Start is called before the first frame update
     void Start()
@@ -55,7 +56,7 @@ public class Player : MonoBehaviour
         {
 
             Death();
-
+            joyPanel.SetActive(false);
         }
     }
     void Death()
