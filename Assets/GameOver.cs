@@ -7,7 +7,7 @@ public class GameOver : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     public void Restart()
@@ -21,6 +21,14 @@ public class GameOver : MonoBehaviour
     }
     public void Exit()
     {
-        Application.Quit();
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            AndroidJavaObject activity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity");
+            activity.Call<bool>("moveTaskToBack", true);
+        }
+        else
+        {
+            Application.Quit();
+        }
     }
 }

@@ -21,11 +21,13 @@ public class playerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Update()
     {
-#if Unity_Adroid
 
+        anim.SetFloat("Speed", Mathf.Abs(horizontalMove));
+#if Unity_android
         if (joy.Horizontal >= 0.2f)
         {
-            horizontalMove = runSpeed;
+            horizontalMove = joy.hrunSpeed;
+            
         }
         else if (joy.Horizontal <= -0.2f) { horizontalMove = -runSpeed; }
         else { horizontalMove = 0; }
@@ -38,10 +40,8 @@ public class playerMovement : MonoBehaviour
         }
 #endif
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR && UNITY_EDITOR_WIN
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
-
-        anim.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
 
         if (Input.GetKeyUp(KeyCode.Space))
@@ -50,8 +50,9 @@ public class playerMovement : MonoBehaviour
             jump = true;
             anim.SetBool("IsJumping", true);
         }
-#endif
+
     }
+#endif
 
     // Update is called once per frame
     void FixedUpdate()
