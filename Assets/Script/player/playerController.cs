@@ -20,7 +20,7 @@ public class playerController : MonoBehaviour
     private Vector3 m_Velocity = Vector3.zero;
 
     public Animator anim;
-    public Joystick joy;
+
     [Header("Events")]
     [Space]
 

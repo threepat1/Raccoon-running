@@ -17,28 +17,40 @@ public class playerMovement : MonoBehaviour
     {
         controller = FindObjectOfType<playerController>();
     }
-
+    
     // Start is called before the first frame update
     void Update()
     {
+#if Unity_Adroid
+
         if (joy.Horizontal >= 0.2f)
         {
             horizontalMove = runSpeed;
         }
         else if (joy.Horizontal <= -0.2f) { horizontalMove = -runSpeed; }
         else { horizontalMove = 0; }
-
-        anim.SetFloat("Speed", Mathf.Abs(horizontalMove));
-
         float verticalMove = joy.Vertical;
-        if (verticalMove >= 0.6f || Input.GetKeyUp(KeyCode.Space))
+        if (verticalMove >= 0.6f)
         {
-
+            controller.m_JumpForce = 200f;
             jump = true;
             anim.SetBool("IsJumping", true);
         }
-       
-        
+#endif
+
+#if UNITY_EDITOR
+        horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
+
+        anim.SetFloat("Speed", Mathf.Abs(horizontalMove));
+
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            controller.m_JumpForce = 500f;
+            jump = true;
+            anim.SetBool("IsJumping", true);
+        }
+#endif
     }
 
     // Update is called once per frame
